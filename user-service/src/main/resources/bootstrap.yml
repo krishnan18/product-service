@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: user-service
+  cloud:
+    kubernetes:
+      discovery:
+        register: false
+      secrets:
+        name: organic-world-secret
+      config:
+        name: user-service
+        namespace: default
+        enabled: true
+        sources:
+          - name: organic-world-config
+          - namespace: default
+      reload:
+        enabled: true
+        mode: polling
+        period: 1000
+    config:
+      uri:
+        - ${CONFIG_SERVER_URL:http://localhost:8888/}

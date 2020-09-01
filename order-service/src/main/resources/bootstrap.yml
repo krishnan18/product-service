@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: order-service
+  cloud:
+    kubernetes:
+      discovery:
+        register: false
+      config:
+        name: order-service
+        namespace: default
+        enabled: true
+        sources:
+          - name: organic-world-config
+          - namespace: default
+      reload:
+        enabled: true
+        mode: polling
+        period: 1000
+    config:
+      uri:
+        - ${CONFIG_SERVER_URL:http://localhost:8888/}

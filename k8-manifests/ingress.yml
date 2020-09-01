@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-gateway
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/v1/products
+            pathType: Prefix
+            backend:
+              serviceName: product-service
+              servicePort: 32000
+          - path: /api/v1/customers
+              pathType: Prefix
+              backend:
+                serviceName: user-service
+                servicePort: 32001
+          - path: /api/v1/orders
+            pathType: Prefix
+            backend:
+              serviceName: order-service
+              servicePort: 32002

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    kubernetes:
+      discovery:
+        register: true
+      config:
+        name: api-gateway
+        namespace: default
+        enabled: true
+        sources:
+          - name: organic-world-config
+          - namespace: default
+      reload:
+        enabled: true
+        mode: polling
+        period: 1000
+    config:
+      uri:
+        - ${CONFIG_SERVER_URL:http://localhost:8888/}

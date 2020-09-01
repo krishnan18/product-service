@@ -1,0 +1,109 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: nkrishnakumar/bk-istio-user-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9010
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: organic-world-secret
+                  key: mysql-user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: organic-world-secret
+                  key: mysql-password
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: organic-world-config
+                  key: mysql-host
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: organic-world-config
+                  key: mysql-database
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: organic-world-config
+                  key: mongo-host
+            - name: MONGO_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: organic-world-config
+                  key: mongo-port
+            - name: MONGO_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: organic-world-config
+                  key: mongo-database
+            - name: KAFKA_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: organic-world-config
+                  key: kafka-host
+            - name: KAFKA_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: organic-world-config
+                  key: kafka-topic
+            - name: KAFKA_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: organic-world-config
+                  key: kafka-topic
+            - name: EUREKA_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: organic-world-config
+                  key: eureka-url
+            - name: CONFIG_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: organic-world-config
+                  key: config-server-url
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 9010
+            initialDelaySeconds: 45
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 9010
+            initialDelaySeconds: 45
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  labels:
+    app: user-service
+spec:
+  type: NodePort
+  ports:
+    - port: 9010
+      targetPort: 9010
+      protocol: TCP
+      nodePort: 32001
+      name: user-service
+  selector:
+    app: user-service

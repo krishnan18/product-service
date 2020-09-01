@@ -1,0 +1,50 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: organicaworld-vs
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - organicaworld-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /admin
+      route:
+        - destination:
+            port:
+              number: 9000
+            host: product-service.default.svc.cluster.local
+    - match:
+        - uri:
+            prefix: /login
+      route:
+        - destination:
+            port:
+              number: 9000
+            host: product-service.default.svc.cluster.local
+    - match:
+        - uri:
+            prefix: /api/v1/products
+      route:
+        - destination:
+            port:
+              number: 9000
+            host: product-service.default.svc.cluster.local
+    - match:
+        - uri:
+            prefix: /api/v1/orders
+      route:
+        - destination:
+            port:
+              number: 9005
+            host: order-service.default.svc.cluster.local
+    - match:
+        - uri:
+            prefix: /api/v1/customers
+      route:
+        - destination:
+            port:
+              number: 9010
+            host: user-service.default.svc.cluster.local
