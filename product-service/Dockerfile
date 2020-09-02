@@ -3,7 +3,7 @@ WORKDIR /app
 RUN ls
 COPY /product-service/pom.xml pom.xml
 RUN mvn dependency:go-offline -B
-COPY src src
+COPY /product-service/src src
 RUN mvn clean package && cp target/product-service.jar app.jar
 
 #
