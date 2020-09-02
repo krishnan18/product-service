@@ -11,6 +11,6 @@ RUN mvn clean package
 #
 FROM openjdk:11-jre-slim
 WORKDIR /app
-COPY --from=maven /app/target/app.jar ./app.jar
+COPY --from=build /app/target/app.jar ./app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/app.jar"]
