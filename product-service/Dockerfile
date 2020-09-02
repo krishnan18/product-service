@@ -4,13 +4,13 @@ RUN ls
 COPY /product-service/pom.xml pom.xml
 RUN mvn dependency:go-offline -B
 COPY /product-service/src src
-RUN mvn clean package && cp target/product-service.jar app.jar
+RUN mvn clean package
 
 #
 # Package stage
 #
 FROM openjdk:11-jre-slim
 WORKDIR /app
-COPY --from=maven /app/app.jar ./app.jar
+COPY --from=maven /app/target/app.jar ./app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/app.jar"]
