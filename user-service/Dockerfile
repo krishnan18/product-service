@@ -1,10 +1,15 @@
-#Dockerfile contains all the commands with which
-#Docker can build images reading the instructions.
+FROM maven:3.6.0-jdk-11-slim AS build
+WORKDIR /app
+COPY /user-service/pom.xml pom.xml
+RUN mvn dependency:go-offline -B
+COPY /user-service/src src
+RUN mvn clean package
 
-FROM openjdk:11
-
-ADD ./target/user-service.jar /usr/src/user-service.jar
-
-WORKDIR usr/src
-
-ENTRYPOINT ["java","-jar", "user-service.jar"]
+#
+# Package stage
+#
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY --from=build /app/target/user-service.jar ./app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/app.jar"]
