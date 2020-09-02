@@ -1,7 +1,7 @@
 FROM maven:3.6.0-jdk-11-slim AS build
 WORKDIR /app
 RUN ls
-COPY pom.xml pom.xml
+COPY /product-service/pom.xml pom.xml
 RUN mvn dependency:go-offline -B
 COPY src src
 RUN mvn clean package && cp target/product-service.jar app.jar
