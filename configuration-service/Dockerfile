@@ -4,7 +4,6 @@ COPY pom.xml pom.xml
 RUN mvn dependency:go-offline -B
 COPY src src
 RUN mvn clean package
-FROM openjdk:11
 
 FROM openjdk:11-jre-slim
 WORKDIR /app
