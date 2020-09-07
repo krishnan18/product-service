@@ -37,9 +37,11 @@ metadata:
   labels:
     app: configuartion-service
 spec:
+  type: NodePort
   ports:
     - port: 8888
       targetPort: 8888
+      nodePort: 32009
       protocol: TCP
       name: configuartion-service
   selector:
