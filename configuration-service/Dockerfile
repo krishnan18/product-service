@@ -1,8 +1,8 @@
 FROM maven:3.6.0-jdk-11-slim AS build
 WORKDIR /app
-COPY /configuration-service/pom.xml pom.xml
+COPY ../configuration-service/pom.xml pom.xml
 RUN mvn dependency:go-offline -B
-COPY /configuration-service/src src
+COPY ../configuration-service/src src
 RUN mvn clean package
 FROM openjdk:11
 
