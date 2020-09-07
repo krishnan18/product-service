@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: organic-world-config
+data:
+  eureka-url: http://service-registry-service:8761/eureka/
+  mongo-host: mongo-service
+  mongo-port: "27017"
+  mongo-database: ow_customers_db
+  mysql-host: mysql-service
+  mysql-database: ow_users_db
+  kafka-host: kafka.default.svc.cluster.local
+  kafka-topic: customer_orders
+  redis-host: redis-service
+  redis-port: "6379"
+  config-server-url: http://configuartion-service.default.svc.cluster.local:8888/
