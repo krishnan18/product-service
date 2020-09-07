@@ -10,6 +10,7 @@ data:
   mysql-host: mysql-service
   mysql-database: ow_users_db
   kafka-host: kafka.default.svc.cluster.local
+  kafka-port: "9092"
   kafka-topic: customer_orders
   redis-host: redis-service
   redis-port: "6379"

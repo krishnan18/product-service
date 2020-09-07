@@ -11,11 +11,10 @@ spec:
     metadata:
       labels:
         app: product-service
-        version: v1
     spec:
       containers:
         - name: product-service
-          image: nkrishnakumar/istio-product-service:latest
+          image: bkrishnan18/product-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9000
@@ -109,12 +108,12 @@ metadata:
   labels:
     app: product-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - port: 9000
       targetPort: 9000
       protocol: TCP
-#      nodePort: 32000
+      nodePort: 32000
       name: product-service
   selector:
     app: product-service

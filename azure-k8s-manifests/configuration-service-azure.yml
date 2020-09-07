@@ -11,7 +11,6 @@ spec:
     metadata:
       labels:
         app: configuartion-service
-        version: v1
     spec:
       containers:
         - name: configuartion-service
@@ -38,11 +37,10 @@ metadata:
   labels:
     app: configuartion-service
 spec:
-  type: LoadBalancer
+  clusterIP: None
   ports:
     - port: 8888
       targetPort: 8888
-#      nodePort: 30185
       protocol: TCP
       name: configuartion-service
   selector:

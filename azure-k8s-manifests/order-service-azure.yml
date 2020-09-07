@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: nkrishnakumar/bk-istio-order-service:latest
+          image: bkrishnan18/order-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9005
@@ -43,7 +43,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: organic-world-config
-                  key: kafka-topic
+                  key: kafka-port
             - name: KAFKA_TOPIC
               valueFrom:
                 configMapKeyRef:
