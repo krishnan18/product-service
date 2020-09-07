@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: nkrishnakumar/bk-istio-order-service:#{Build.BuildId}#
+          image: nkrishnakumar/bk-istio-order-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9005

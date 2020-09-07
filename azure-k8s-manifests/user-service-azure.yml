@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: nkrishnakumar/bk-istio-user-service:#{Build.BuildId}#
+          image: nkrishnakumar/bk-istio-user-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9010

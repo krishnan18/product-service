@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: configuartion-service
-          image: bkrishnan18/configuartion-service:#{Build.BuildId}#
+          image: bkrishnan18/configuartion-service:1.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8888
