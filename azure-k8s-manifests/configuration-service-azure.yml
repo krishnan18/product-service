@@ -37,7 +37,6 @@ metadata:
   labels:
     app: configuartion-service
 spec:
-  clusterIP: None
   ports:
     - port: 8888
       targetPort: 8888
