@@ -1,4 +1,4 @@
-#Define Persistent Volumes object named `mongo-pv`
+
 kind: PersistentVolume
 apiVersion: v1
 metadata:
@@ -15,7 +15,6 @@ spec:
     path: "/k8s/mongo"
 
 ---
-#  Define a Persistent Volume Claim named `mongo-pvc` that can be used by a Pod to gain access to the Persistent Volumes
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -30,8 +29,6 @@ spec:
 
 ---
 
-#Define a deployment named `mongodb` by using the latest mongo image from Docker Hub
-#Use container port 27017.
 kind: Deployment
 apiVersion: apps/v1
 metadata:
@@ -65,7 +62,6 @@ spec:
           persistentVolumeClaim:
             claimName: mongo-pvc
 ---
-#Define a service named `mongodb` of type ClusterIP and use the above created deployment as selector
 apiVersion: v1
 kind: Service
 metadata:
